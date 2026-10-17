@@ -36,6 +36,9 @@ import {
 } from '@lucide/vue'
 import { navigation as staticNavigation, pages as staticPages, quickLinks } from './site-data.js'
 import { data as searchablePages } from './search.data.mjs'
+import siteSettings from '../../content/site-settings.json'
+import WhatsAppIcon from './components/WhatsAppIcon.vue'
+import { buildWhatsAppUrl } from './whatsapp.js'
 
 const icons = {
   Blocks,
@@ -133,6 +136,10 @@ const sidebarOpen = ref(false)
 const isDark = ref(false)
 const searchQuery = ref('')
 const searchOpen = ref(false)
+const whatsappUrl = computed(() => buildWhatsAppUrl(
+  siteSettings.whatsappNumber,
+  'مرحباً، أرغب في الاستفسار عن ثيم الأول.'
+))
 const openGroups = ref(new Set(staticNavigation.map((group, index) => group.open ? index : -1).filter(index => index >= 0)))
 const openSubgroups = ref(new Set())
 
@@ -356,4 +363,16 @@ onUnmounted(() => {
       </div>
     </main>
   </div>
+
+  <a
+    v-if="whatsappUrl"
+    class="floating-whatsapp"
+    :href="whatsappUrl"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="طلب محادثة عبر واتساب"
+    title="تواصل معنا عبر واتساب"
+  >
+    <WhatsAppIcon />
+  </a>
 </template>

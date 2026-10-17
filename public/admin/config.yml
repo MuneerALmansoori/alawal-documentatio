@@ -18,6 +18,23 @@ slug:
   sanitize_replacement: "-"
 
 collections:
+  - name: site_settings
+    label: إعدادات الموقع
+    description: إعدادات التواصل والعناصر العامة التي تظهر في جميع صفحات التوثيق.
+    editor:
+      preview: false
+    files:
+      - label: التواصل عبر واتساب
+        name: whatsapp
+        file: content/site-settings.json
+        format: json
+        fields:
+          - label: رقم واتساب للتواصل مع العملاء
+            name: whatsappNumber
+            widget: string
+            required: false
+            hint: اكتب الرقم مع مفتاح الدولة، مثل 966501234567. يمكنك أيضاً كتابة رقم سعودي يبدأ بـ 05 وسيتم تحويله تلقائياً.
+
   - name: main_pages
     label: الصفحات الرئيسية
     description: الصفحات الأساسية في مركز التوثيق.
