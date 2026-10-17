@@ -1,5 +1,10 @@
 [build]
-  publish = "netlify-auth"
+  command = "pnpm auth:build"
+  publish = "netlify-auth-dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PNPM_VERSION = "10.25.0"
 
 [[headers]]
   for = "/*"
@@ -7,4 +12,3 @@
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
-

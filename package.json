@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "auth:build": "vite build netlify-auth --outDir ../netlify-auth-dist --emptyOutDir --base ./",
     "docs:generate-components": "node scripts/generate-component-docs.mjs",
     "docs:dev": "vitepress dev .",
     "docs:build": "vitepress build .",
@@ -16,7 +17,11 @@
     "concurrently": "^10.0.6",
     "cross-env": "^10.1.0",
     "decap-server": "^3.11.5",
+    "vite": "^8.3.4",
     "vitepress": "1.6.4",
     "vue": "^3.5.44"
+  },
+  "dependencies": {
+    "@netlify/identity": "^2.0.0"
   }
 }

@@ -7,135 +7,60 @@
     <meta name="theme-color" content="#7948f5">
     <title>خدمة مصادقة توثيق الأول</title>
     <style>
-      :root {
-        color: #111827;
-        background: #f8fafd;
-        font-family: Arial, sans-serif;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        display: grid;
-        min-height: 100vh;
-        margin: 0;
-        padding: 1rem;
-        place-items: center;
-      }
-
-      main {
-        width: min(100%, 36rem);
-        padding: 2.5rem 2rem;
-        border: 1px solid #e5eaf2;
-        border-radius: 8px;
-        background: #fff;
-        text-align: center;
-      }
-
-      h1 {
-        margin: 0 0 1rem;
-        font-size: clamp(1.6rem, 5vw, 2.25rem);
-      }
-
-      p {
-        margin: 0 auto 1.5rem;
-        color: #667085;
-        line-height: 1.8;
-      }
-
-      button {
-        min-height: 44px;
-        padding: 0.7rem 1.25rem;
-        border: 0;
-        border-radius: 6px;
-        color: #fff;
-        background: #7948f5;
-        cursor: pointer;
-        font: inherit;
-        font-weight: 700;
-      }
-
-      button:focus-visible {
-        outline: 3px solid #d8caff;
-        outline-offset: 3px;
-      }
-
-      .status {
-        min-height: 1.5rem;
-        margin-top: 1rem;
-        color: #667085;
-        font-size: 0.9rem;
-      }
+      :root { color: #111827; background: #f8fafd; font-family: Arial, sans-serif; }
+      * { box-sizing: border-box; }
+      body { display: grid; min-height: 100vh; margin: 0; padding: 1rem; place-items: center; }
+      main { width: min(100%, 34rem); padding: 2.5rem 2rem; border: 1px solid #e5eaf2; border-radius: 8px; background: #fff; box-shadow: 0 16px 40px rgba(17, 24, 39, 0.06); }
+      h1 { margin: 0 0 0.75rem; font-size: clamp(1.6rem, 5vw, 2.15rem); text-align: center; }
+      .lead { margin: 0 auto 1.75rem; color: #667085; line-height: 1.8; text-align: center; }
+      form { display: grid; gap: 1rem; }
+      form[hidden] { display: none; }
+      label { display: grid; gap: 0.45rem; color: #344054; font-weight: 700; }
+      input { width: 100%; min-height: 46px; padding: 0.7rem 0.85rem; border: 1px solid #d7dce5; border-radius: 6px; background: #fff; color: #111827; font: inherit; direction: ltr; }
+      input:focus { border-color: #7948f5; outline: 3px solid #eee8ff; }
+      button { min-height: 46px; padding: 0.7rem 1.25rem; border: 0; border-radius: 6px; color: #fff; background: #7948f5; cursor: pointer; font: inherit; font-weight: 700; }
+      button:disabled { cursor: wait; opacity: 0.65; }
+      button.secondary { border: 1px solid #d7dce5; color: #344054; background: #fff; }
+      button.link { min-height: auto; padding: 0.25rem; color: #6941c6; background: transparent; font-weight: 500; }
+      .actions { display: grid; gap: 0.65rem; }
+      .hint { margin: 0; color: #667085; font-size: 0.88rem; line-height: 1.7; text-align: center; }
+      .status { min-height: 1.5rem; margin-top: 1rem; color: #667085; font-size: 0.92rem; line-height: 1.7; text-align: center; }
+      .status[data-kind="error"] { color: #b42318; }
+      .status[data-kind="success"] { color: #067647; }
     </style>
   </head>
   <body>
     <main>
-      <h1>خدمة مصادقة توثيق الأول</h1>
-      <p id="message">سجّل الدخول بأمان للوصول إلى لوحة إدارة التوثيق.</p>
-      <button id="auth-button" type="button">تسجيل الدخول إلى لوحة الإدارة</button>
+      <h1 id="title">خدمة مصادقة توثيق الأول</h1>
+      <p id="message" class="lead">سجّل الدخول بأمان للوصول إلى لوحة إدارة التوثيق.</p>
+
+      <form id="password-form" hidden>
+        <label>كلمة المرور الجديدة<input id="new-password" name="password" type="password" minlength="8" autocomplete="new-password" required></label>
+        <label>تأكيد كلمة المرور<input id="confirm-password" name="confirmPassword" type="password" minlength="8" autocomplete="new-password" required></label>
+        <button type="submit">حفظ كلمة المرور والمتابعة</button>
+        <p class="hint">استخدم ثمانية أحرف على الأقل، ولا تشارك كلمة المرور أو رابط البريد مع أي شخص.</p>
+      </form>
+
+      <form id="login-form">
+        <label>البريد الإلكتروني<input id="email" name="email" type="email" autocomplete="username" required></label>
+        <label>كلمة المرور<input id="password" name="password" type="password" autocomplete="current-password" required></label>
+        <div class="actions">
+          <button type="submit">تسجيل الدخول إلى لوحة الإدارة</button>
+          <button id="show-recovery" class="link" type="button">نسيت كلمة المرور؟</button>
+        </div>
+        <p class="hint">إنشاء الحساب لأول مرة متاح فقط من رابط الدعوة المرسل إلى بريدك.</p>
+      </form>
+
+      <form id="recovery-form" hidden>
+        <label>البريد الإلكتروني<input id="recovery-email" name="email" type="email" autocomplete="email" required></label>
+        <div class="actions">
+          <button type="submit">إرسال رابط استعادة كلمة المرور</button>
+          <button id="show-login" class="secondary" type="button">العودة إلى تسجيل الدخول</button>
+        </div>
+      </form>
+
       <div id="status" class="status" role="status" aria-live="polite"></div>
     </main>
-
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-      (function () {
-        var adminUrl = "https://muneeralmansoori.github.io/alawal-documentatio/admin/";
-        var identity = window.netlifyIdentity;
-        var authButton = document.getElementById("auth-button");
-        var message = document.getElementById("message");
-        var status = document.getElementById("status");
-        var hash = window.location.hash;
-        var isInvite = hash.indexOf("invite_token=") !== -1;
-        var isRecovery = hash.indexOf("recovery_token=") !== -1;
-
-        if (!identity) {
-          status.textContent = "تعذر تحميل خدمة تسجيل الدخول. أعد تحميل الصفحة ثم حاول مرة أخرى.";
-          authButton.disabled = true;
-          return;
-        }
-
-        if (isInvite) {
-          message.textContent = "أكمل قبول الدعوة بإنشاء كلمة مرور جديدة لحسابك.";
-          status.textContent = "جارٍ فتح نموذج إنشاء كلمة المرور...";
-          authButton.hidden = true;
-        } else if (isRecovery) {
-          message.textContent = "أدخل كلمة مرور جديدة لاستعادة حسابك.";
-          status.textContent = "جارٍ فتح نموذج استعادة كلمة المرور...";
-          authButton.hidden = true;
-        }
-
-        identity.on("init", function (user) {
-          if (user && !isInvite && !isRecovery) {
-            window.location.assign(adminUrl);
-          }
-        });
-
-        identity.on("login", function () {
-          status.textContent = "تم تسجيل الدخول. جارٍ فتح لوحة الإدارة...";
-          identity.close();
-          window.location.assign(adminUrl);
-        });
-
-        identity.on("error", function () {
-          status.textContent = "تعذر إكمال العملية. اطلب دعوة جديدة إذا انتهت صلاحية الرابط.";
-        });
-
-        identity.on("open", function () {
-          status.textContent = "";
-        });
-
-        identity.on("close", function () {
-          if (isInvite || isRecovery) {
-            status.textContent = "أعد تحميل رابط البريد لفتح نموذج كلمة المرور مرة أخرى.";
-          }
-        });
-
-        authButton.addEventListener("click", function () {
-          identity.open("login");
-        });
-      })();
-    </script>
+    <script type="module" src="/main.js"></script>
   </body>
 </html>
