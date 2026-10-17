@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#7948f5">
     <title>خدمة مصادقة توثيق الأول</title>
     <style>
       :root {
@@ -12,32 +13,119 @@
         font-family: Arial, sans-serif;
       }
 
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         display: grid;
         min-height: 100vh;
         margin: 0;
+        padding: 1rem;
         place-items: center;
       }
 
       main {
-        width: min(90%, 32rem);
-        padding: 2rem;
+        width: min(100%, 36rem);
+        padding: 2.5rem 2rem;
         border: 1px solid #e5eaf2;
         border-radius: 8px;
         background: #fff;
         text-align: center;
       }
 
-      a {
-        color: #7948f5;
+      h1 {
+        margin: 0 0 1rem;
+        font-size: clamp(1.6rem, 5vw, 2.25rem);
+      }
+
+      p {
+        margin: 0 auto 1.5rem;
+        color: #667085;
+        line-height: 1.8;
+      }
+
+      button {
+        min-height: 44px;
+        padding: 0.7rem 1.25rem;
+        border: 0;
+        border-radius: 6px;
+        color: #fff;
+        background: #7948f5;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+      }
+
+      button:focus-visible {
+        outline: 3px solid #d8caff;
+        outline-offset: 3px;
+      }
+
+      .status {
+        min-height: 1.5rem;
+        margin-top: 1rem;
+        color: #667085;
+        font-size: 0.9rem;
       }
     </style>
   </head>
   <body>
     <main>
       <h1>خدمة مصادقة توثيق الأول</h1>
-      <p>هذا النطاق مخصص لتسجيل الدخول الآمن إلى لوحة إدارة التوثيق.</p>
-      <a href="https://muneeralmansoori.github.io/alawal-documentatio/admin/">فتح لوحة الإدارة</a>
+      <p id="message">سجّل الدخول بأمان للوصول إلى لوحة إدارة التوثيق.</p>
+      <button id="auth-button" type="button">تسجيل الدخول إلى لوحة الإدارة</button>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
     </main>
+
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      (function () {
+        var adminUrl = "https://muneeralmansoori.github.io/alawal-documentatio/admin/";
+        var identity = window.netlifyIdentity;
+        var authButton = document.getElementById("auth-button");
+        var message = document.getElementById("message");
+        var status = document.getElementById("status");
+        var hash = window.location.hash;
+        var isInvite = hash.indexOf("invite_token=") !== -1;
+        var isRecovery = hash.indexOf("recovery_token=") !== -1;
+
+        if (!identity) {
+          status.textContent = "تعذر تحميل خدمة تسجيل الدخول. أعد تحميل الصفحة ثم حاول مرة أخرى.";
+          authButton.disabled = true;
+          return;
+        }
+
+        if (isInvite) {
+          message.textContent = "أكمل قبول الدعوة بإنشاء كلمة مرور جديدة لحسابك.";
+          status.textContent = "جارٍ فتح نموذج إنشاء كلمة المرور...";
+        } else if (isRecovery) {
+          message.textContent = "أدخل كلمة مرور جديدة لاستعادة حسابك.";
+          status.textContent = "جارٍ فتح نموذج استعادة كلمة المرور...";
+        }
+
+        identity.on("init", function (user) {
+          if (user && !isInvite && !isRecovery) {
+            window.location.assign(adminUrl);
+          }
+        });
+
+        identity.on("login", function () {
+          status.textContent = "تم تسجيل الدخول. جارٍ فتح لوحة الإدارة...";
+          identity.close();
+          window.location.assign(adminUrl);
+        });
+
+        identity.on("error", function () {
+          status.textContent = "تعذر إكمال العملية. اطلب دعوة جديدة إذا انتهت صلاحية الرابط.";
+        });
+
+        authButton.addEventListener("click", function () {
+          identity.open("login");
+        });
+
+        identity.init();
+      })();
+    </script>
   </body>
 </html>
