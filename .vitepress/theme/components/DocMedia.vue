@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { withBase } from 'vitepress'
 
 const props = defineProps({
   type: {
@@ -20,7 +21,15 @@ const props = defineProps({
   }
 })
 
-const source = computed(() => props.src.trim())
+const source = computed(() => {
+  const value = props.src.trim()
+
+  if (!value || /^(?:https?:|data:|blob:|\/\/)/i.test(value)) {
+    return value
+  }
+
+  return withBase(value.startsWith('/') ? value : `/${value}`)
+})
 const isVideo = computed(() => props.type === 'video')
 const mediaWidth = computed(() => {
   const value = Number.parseFloat(props.width)
