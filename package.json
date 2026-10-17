@@ -1,0 +1,22 @@
+{
+  "name": "alawal-theme-documentation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:generate-components": "node scripts/generate-component-docs.mjs",
+    "docs:dev": "vitepress dev .",
+    "docs:build": "vitepress build .",
+    "docs:preview": "vitepress preview .",
+    "cms:proxy": "cross-env GIT_REPO_DIRECTORY=.. decap-server",
+    "docs:admin": "concurrently --kill-others --names DOCS,CMS --prefix-colors blue,magenta \"pnpm docs:dev --host 0.0.0.0\" \"pnpm cms:proxy\""
+  },
+  "devDependencies": {
+    "@lucide/vue": "^1.57.0",
+    "concurrently": "^10.0.6",
+    "cross-env": "^10.1.0",
+    "decap-server": "^3.11.5",
+    "vitepress": "1.6.4",
+    "vue": "^3.5.44"
+  }
+}

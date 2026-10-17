@@ -1,0 +1,180 @@
+backend:
+  name: github
+  repo: MuneerALmansoori/alawal-documentatio
+  branch: master
+
+local_backend: true
+locale: ar
+publish_mode: simple
+site_url: https://muneeralmansoori.github.io/alawal-documentatio/
+display_url: https://muneeralmansoori.github.io/alawal-documentatio/
+media_folder: public/assets/uploads
+public_folder: /assets/uploads
+
+slug:
+  encoding: unicode
+  clean_accents: false
+  sanitize_replacement: "-"
+
+collections:
+  - name: main_pages
+    label: الصفحات الرئيسية
+    description: الصفحات الأساسية في مركز التوثيق.
+    editor:
+      preview: false
+    files:
+      - label: الرئيسية
+        name: home
+        file: index.md
+        fields:
+          - { label: العنوان, name: title, widget: string }
+          - { label: الوصف المختصر, name: description, widget: text }
+          - { label: العبارة الصغيرة فوق العنوان, name: welcomeEyebrow, widget: string, default: "دليل ثيم الأول" }
+          - { label: النص داخل محرك البحث, name: searchPlaceholder, widget: string, default: "ابحث عن إعداد أو ميزة (مثال: تغيير لون الهيدر)..." }
+          - { label: صورة العرض داخل إطار المتصفح, name: welcomeDesktopImage, widget: image, required: false, hint: ارفع لقطة أفقية مخصصة لواجهة سطح المكتب. }
+          - { label: صورة العرض داخل إطار الهاتف, name: welcomeMobileImage, widget: image, required: false, hint: ارفع لقطة طولية مخصصة لواجهة الهاتف. }
+          - { label: القسم, name: section, widget: string }
+          - { label: اسم الأيقونة, name: icon, widget: string, required: false }
+          - { label: التنبيه أعلى المحتوى, name: notice, widget: text, required: false }
+          - { label: محتوى الصفحة, name: body, widget: sortable-markdown }
+      - label: المقدمة
+        name: introduction
+        file: intro.md
+        fields: &page_fields
+          - { label: العنوان, name: title, widget: string }
+          - { label: الوصف المختصر, name: description, widget: text }
+          - { label: القسم, name: section, widget: string }
+          - { label: اسم الأيقونة, name: icon, widget: string, required: false }
+          - { label: التنبيه أعلى المحتوى, name: notice, widget: text, required: false }
+          - { label: محتوى الصفحة, name: body, widget: sortable-markdown }
+      - label: البدء السريع
+        name: quick_start
+        file: quick-start.md
+        fields: *page_fields
+      - label: تهيئة الجوال
+        name: mobile
+        file: mobile.md
+        fields: *page_fields
+      - label: الأسئلة الشائعة
+        name: faq
+        file: faq.md
+        fields: *page_fields
+      - label: حل المشكلات
+        name: troubleshooting
+        file: troubleshooting.md
+        fields: *page_fields
+      - label: قائمة التحديثات
+        name: changelog
+        file: changelog.md
+        fields: *page_fields
+      - label: دليل العناصر
+        name: components
+        file: components.md
+        fields: *page_fields
+      - label: الدعم والمساعدة
+        name: support
+        file: support.md
+        fields: *page_fields
+
+  - name: design
+    label: تخصيص التصميم
+    label_singular: صفحة تصميم
+    description: الألوان والخطوط والهيدر والأقسام.
+    folder: design
+    extension: md
+    format: frontmatter
+    create: false
+    editor:
+      preview: false
+    fields: *page_fields
+
+  - name: products
+    label: صفحات المنتجات
+    label_singular: صفحة منتجات
+    description: صفحة المنتج والبطاقات ووسائل الدفع.
+    folder: products
+    extension: md
+    format: frontmatter
+    create: false
+    editor:
+      preview: false
+    fields: *page_fields
+
+  - name: theme_components
+    label: تخصيص العناصر
+    label_singular: صفحة عنصر
+    description: شرح عناصر ثيم الأول المخصصة وعناصر سلة الأصلية المدعومة.
+    folder: design/components
+    extension: md
+    format: frontmatter
+    create: false
+    identifier_field: title
+    summary: "{{title}}"
+    sortable_fields: [pageOrder, title]
+    editor:
+      preview: false
+    fields:
+      - { label: اسم العنصر, name: title, widget: string }
+      - { label: الوصف المختصر, name: description, widget: text }
+      - { label: القسم, name: section, widget: hidden, default: "تخصيص العناصر" }
+      - { label: اسم الأيقونة, name: icon, widget: hidden, default: blocks }
+      - { label: ترتيب العنصر, name: pageOrder, widget: number, value_type: int, min: 0, required: false }
+      - { label: التنبيه أعلى المحتوى, name: notice, widget: text, required: false }
+      - { label: محتوى الصفحة, name: body, widget: sortable-markdown }
+
+  - name: other_pages
+    label: الصفحات الأخرى
+    label_singular: صفحة
+    description: صفحات التصنيفات والسلة والشراء.
+    folder: pages
+    extension: md
+    format: frontmatter
+    create: false
+    editor:
+      preview: false
+    fields: *page_fields
+
+  - name: advanced
+    label: الإعدادات المتقدمة
+    label_singular: صفحة متقدمة
+    description: الحركات والإعدادات المتقدمة.
+    folder: advanced
+    extension: md
+    format: frontmatter
+    create: false
+    editor:
+      preview: false
+    fields: *page_fields
+
+  - name: documentation_tree
+    label: الأقسام والصفحات
+    label_singular: قسم أو صفحة
+    description: أنشئ أقسام التوثيق وصفحاتها في شجرة مرتبة. أنشئ القسم أولاً ثم أضف الصفحات داخله.
+    folder: content
+    extension: md
+    format: frontmatter
+    create: true
+    identifier_field: title
+    summary: "{{title}}"
+    editor:
+      preview: false
+    nested:
+      depth: 3
+      summary: "{{title}}"
+      subfolders: true
+    meta:
+      path:
+        widget: string
+        label: مسار القسم أو الصفحة
+        hint: استخدم اسماً إنجليزياً قصيراً، مثل design أو design/colors. لإنشاء قسم أضف المسار design ثم أضف صفحاته داخله.
+        index_file: index
+    fields:
+      - { label: عنوان الصفحة, name: title, widget: string }
+      - { label: الوصف المختصر, name: description, widget: text, required: false }
+      - { label: اسم القسم في القائمة, name: section, widget: string, hint: اكتب الاسم نفسه لكل الصفحات التابعة للقسم. }
+      - { label: اسم الأيقونة, name: icon, widget: string, default: book-open, required: false }
+      - { label: ترتيب القسم, name: sectionOrder, widget: number, value_type: int, default: 100, min: 0, required: false }
+      - { label: ترتيب الصفحة داخل القسم, name: pageOrder, widget: number, value_type: int, default: 100, min: 0, required: false }
+      - { label: إخفاء الصفحة من القائمة الجانبية, name: navigationHidden, widget: boolean, default: false, required: false }
+      - { label: التنبيه أعلى المحتوى, name: notice, widget: text, required: false }
+      - { label: محتوى الصفحة, name: body, widget: sortable-markdown }

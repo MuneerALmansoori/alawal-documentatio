@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#7948F5">
+    <title>إدارة محتوى توثيق الأول</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./admin.css">
+    <style>
+      html, body { min-height: 100%; margin: 0; background: #f8fafd; font-family: "Rubik", sans-serif; }
+      body { direction: rtl; }
+      #nc-root:empty::before {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        color: #7948f5;
+        content: "جارٍ تحميل إدارة المحتوى...";
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.17.1/dist/decap-cms.js"></script>
+    <script src="./media-editor.js"></script>
+    <script src="./admin-ui.js"></script>
+  </body>
+</html>
