@@ -99,9 +99,11 @@
         if (isInvite) {
           message.textContent = "أكمل قبول الدعوة بإنشاء كلمة مرور جديدة لحسابك.";
           status.textContent = "جارٍ فتح نموذج إنشاء كلمة المرور...";
+          authButton.hidden = true;
         } else if (isRecovery) {
           message.textContent = "أدخل كلمة مرور جديدة لاستعادة حسابك.";
           status.textContent = "جارٍ فتح نموذج استعادة كلمة المرور...";
+          authButton.hidden = true;
         }
 
         identity.on("init", function (user) {
@@ -120,11 +122,19 @@
           status.textContent = "تعذر إكمال العملية. اطلب دعوة جديدة إذا انتهت صلاحية الرابط.";
         });
 
+        identity.on("open", function () {
+          status.textContent = "";
+        });
+
+        identity.on("close", function () {
+          if (isInvite || isRecovery) {
+            status.textContent = "أعد تحميل رابط البريد لفتح نموذج كلمة المرور مرة أخرى.";
+          }
+        });
+
         authButton.addEventListener("click", function () {
           identity.open("login");
         });
-
-        identity.init();
       })();
     </script>
   </body>
