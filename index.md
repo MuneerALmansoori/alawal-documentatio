@@ -9,8 +9,12 @@ welcomeDesktopImage: ""
 welcomeMobileImage: /assets/uploads/alawal-8-.png
 section: مقدمة
 icon: book-open
-notice: تنبيه اعلى المحتوى
+notice: نستطيع ان نقوم باعدادات الثيم بما يناسب متجرك بمبلغ رمزي  30 ريال فقط
 ---
+
+
+<DocMedia type="image" src="/assets/uploads/1-alawal.png" width="95" alt="" />
+
 ابدأ من لوحة تخصيص الثيم، ثم انتقل إلى منشئ الصفحات لإضافة العناصر المناسبة لنشاط متجرك. جميع الشروحات تراعي العربية والإنجليزية وسطح المكتب والجوال.
 
 ## ما الذي ستتعلمه
