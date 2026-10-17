@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: MuneerALmansoori/alawal-documentatio
-  branch: master
+  branch: main
 
 local_backend: true
 locale: ar
