@@ -1,7 +1,8 @@
 backend:
-  name: github
-  repo: MuneerALmansoori/alawal-documentatio
+  name: git-gateway
   branch: main
+  identity_url: https://graceful-belekoy-2d5aaa.netlify.app/.netlify/identity
+  gateway_url: https://graceful-belekoy-2d5aaa.netlify.app/.netlify/git/github
 
 local_backend: true
 locale: ar
