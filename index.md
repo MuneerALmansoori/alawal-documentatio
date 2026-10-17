@@ -5,7 +5,7 @@ description: هذا المركز هو المرجع العملي لإعداد ث�
   على منصة سلة.
 welcomeEyebrow: دليل ثيم الأول
 searchPlaceholder: دليل ثيم الأول
-welcomeDesktopImage: ""
+welcomeDesktopImage: /assets/uploads/a4.png
 welcomeMobileImage: /assets/uploads/alawal-8-.png
 section: مقدمة
 icon: book-open
