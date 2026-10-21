@@ -14,6 +14,12 @@ function frontmatter(item, order) {
 function pageContent(item, order) {
   const typeLabel = item.type === 'native' ? 'عنصر أصلي من سلة يدعمه الثيم بقالب مخصص.' : 'عنصر مخصص في ثيم الأول.'
   const features = item.features.map(feature => `- ${feature}`).join('\n')
+  const settings = item.settings?.length
+    ? `## الإعدادات المهمة\n\n${item.settings.map(setting => `- ${setting}`).join('\n')}\n\n`
+    : ''
+  const notes = item.notes?.length
+    ? `## ملاحظات التشغيل\n\n${item.notes.map(note => `- ${note}`).join('\n')}\n\n`
+    : ''
   return `${frontmatter(item, order)}
 
 ${item.summary}
@@ -31,7 +37,7 @@ ${features}
 - متجاوب مع سطح المكتب والتابلت والهاتف.
 - يستجيب لأوضاع الألوان المفعلة في الثيم.
 
-## طريقة الإضافة
+${settings}${notes}## طريقة الإضافة
 
 1. افتح الصفحة المطلوبة من منشئ صفحات سلة.
 2. اختر **إضافة عنصر** ثم ابحث عن **${item.name}**.
